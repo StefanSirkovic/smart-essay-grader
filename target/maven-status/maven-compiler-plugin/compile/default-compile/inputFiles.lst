@@ -1,0 +1,10 @@
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/SmartEssayGraderApplication.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/EssayResponse.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/EssaySubmissionRequest.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/GradingResultResponse.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/model/Essay.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/model/EssayStatus.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/model/GradingCriteria.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/model/GradingResult.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/repository/EssayRepository.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/repository/GradingResultRepository.java
