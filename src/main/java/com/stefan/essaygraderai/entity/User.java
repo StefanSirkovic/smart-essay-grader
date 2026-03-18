@@ -1,6 +1,8 @@
 package com.stefan.essaygraderai.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import com.stefan.essaygraderai.enums.Role;
 import java.time.LocalDateTime;
@@ -19,10 +21,16 @@ public class User {
 
     private String firstName;
     private String lastName;
+
+    @Email
+    @NotNull
+    @Column(nullable = false)
     private String email;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     private LocalDateTime createdAt;
