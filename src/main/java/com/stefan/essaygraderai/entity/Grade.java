@@ -1,10 +1,7 @@
 package com.stefan.essaygraderai.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -25,6 +22,7 @@ public class Grade {
 
     private LocalDateTime gradedAt;
 
-    //kasnije odrediti relaciju
-    //private Essay essay;
+    @OneToOne
+    @JoinColumn(name = "essay_id")
+    private Essay essay;
 }
