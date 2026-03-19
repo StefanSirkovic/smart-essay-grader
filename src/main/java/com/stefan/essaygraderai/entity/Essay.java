@@ -28,6 +28,11 @@ public class Essay {
 
     private LocalDateTime submittedAt;
 
-//    dodati relaciju
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToOne(mappedBy = "essay", cascade = CascadeType.ALL)
+    private Grade grade;
+
 }
