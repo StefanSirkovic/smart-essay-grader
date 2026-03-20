@@ -17,7 +17,9 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double score;
+    private Double score;
+
+    @Column(columnDefinition = "TEXT")
     private String feedback;
 
     private LocalDateTime gradedAt;
