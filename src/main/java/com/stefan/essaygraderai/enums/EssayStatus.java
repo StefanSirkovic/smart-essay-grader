@@ -1,6 +1,6 @@
 package com.stefan.essaygraderai.enums;
 
-public enum Status {
+public enum EssayStatus {
     SUBMITTED,
     GRADING,
     GRADED,
