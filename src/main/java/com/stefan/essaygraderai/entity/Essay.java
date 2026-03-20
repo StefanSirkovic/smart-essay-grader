@@ -1,7 +1,6 @@
 package com.stefan.essaygraderai.entity;
 
-import com.stefan.essaygraderai.enums.Status;
-import jakarta.annotation.Nullable;
+import com.stefan.essaygraderai.enums.EssayStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,11 +19,13 @@ public class Essay {
     private Long id;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String text;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private EssayStatus essayStatus;
 
     private LocalDateTime submittedAt;
 
