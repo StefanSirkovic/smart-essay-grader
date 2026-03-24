@@ -1,4 +1,6 @@
 package com.stefan.essaygraderai.dto.response;
 
-public class AuthResponse {
+import com.stefan.essaygraderai.enums.Role;
+
+public record AuthResponse(String token, Long userId, String email, Role role) {
 }
