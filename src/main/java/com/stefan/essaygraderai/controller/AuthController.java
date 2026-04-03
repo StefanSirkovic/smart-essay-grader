@@ -5,6 +5,7 @@ import com.stefan.essaygraderai.dto.request.RegisterRequest;
 import com.stefan.essaygraderai.dto.response.AuthResponse;
 import com.stefan.essaygraderai.service.AuthService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +24,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-        return authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        return authService.login(request);
+        return ResponseEntity.ok(authService.login(request));
     }
 
 }

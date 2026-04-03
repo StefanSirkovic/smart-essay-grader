@@ -8,12 +8,9 @@ import com.stefan.essaygraderai.enums.Role;
 import com.stefan.essaygraderai.exception.EmailAlreadyExistsException;
 import com.stefan.essaygraderai.repository.UserRepository;
 import com.stefan.essaygraderai.security.JwtService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +29,7 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public ResponseEntity<AuthResponse> register(RegisterRequest registerRequest) {
+    public AuthResponse register(RegisterRequest registerRequest) {
 
         if (userRepository.existsByEmail(registerRequest.email())) {
             throw new EmailAlreadyExistsException("Email already exists");
@@ -50,24 +47,20 @@ public class AuthService {
 
         String token = jwtService.generateToken(user);
 
-        AuthResponse authResponse = new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
-
-        return ResponseEntity.ok(authResponse);
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
 
     }
 
-    public ResponseEntity<AuthResponse> login(LoginRequest loginRequest) {
+    public AuthResponse login(LoginRequest loginRequest) {
         String email = loginRequest.email();
         String password = loginRequest.password();
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = (User) authentication.getPrincipal();
 
         String token = jwtService.generateToken(user);
 
-        AuthResponse authResponse = new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
 
-        return ResponseEntity.ok(authResponse);
     }
 }
