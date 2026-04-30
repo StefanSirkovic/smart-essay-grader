@@ -100,5 +100,19 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(EssayAlreadyGradedException.class)
+    public ResponseEntity<ErrorResponse> handleEssayAlreadyGraded(EssayAlreadyGradedException ex) {
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.FORBIDDEN.value(),
+                "Essay cannot be edited after grading",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+
+    }
+
 
 }
