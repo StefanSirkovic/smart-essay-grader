@@ -22,3 +22,10 @@ jwt:
   secret: zKgb7RFALzRH6lxO8yyN9fWxODctI0CzH4sIukXPCUA
   expiration: 86400000
 
+ai:
+  api:
+    key: ${AI_API_KEY:AIzaSyAkGSh2ZFwHCT5Pnb3jg1-CsHodreBEw4E}
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
+    model: gemini-2.5-flash
+
+
