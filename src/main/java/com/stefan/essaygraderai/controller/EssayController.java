@@ -2,8 +2,10 @@ package com.stefan.essaygraderai.controller;
 
 import com.stefan.essaygraderai.dto.request.EssayRequest;
 import com.stefan.essaygraderai.dto.response.EssayResponse;
+import com.stefan.essaygraderai.dto.response.GradeResponse;
 import com.stefan.essaygraderai.entity.User;
 import com.stefan.essaygraderai.service.EssayService;
+import com.stefan.essaygraderai.service.GradingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,11 @@ import java.util.List;
 public class EssayController {
 
     private final EssayService essayService;
+    private final GradingService gradingService;
 
-    public EssayController(EssayService essayService) {
+    public EssayController(EssayService essayService, GradingService gradingService) {
         this.essayService = essayService;
+        this.gradingService = gradingService;
     }
 
     @PostMapping
@@ -51,6 +55,12 @@ public class EssayController {
                                        @AuthenticationPrincipal User currentUser) {
         essayService.deleteEssay(id, currentUser);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/grade")
+    public ResponseEntity<GradeResponse> gradeEssay(@PathVariable Long id,
+                                                    @AuthenticationPrincipal User currentUser) {
+        return ResponseEntity.ok().body(gradingService.gradeEssay(id, currentUser));
     }
 
 }
