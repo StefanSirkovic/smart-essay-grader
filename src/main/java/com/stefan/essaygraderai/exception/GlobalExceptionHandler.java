@@ -114,5 +114,19 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(GradingException.class)
+    public ResponseEntity<ErrorResponse> handleGradingException(GradingException ex) {
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_GATEWAY.value(),
+                "Grading exception",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_GATEWAY);
+
+    }
+
 
 }
