@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: SmartEssayGrader
+  datasource:
+    url: jdbc:postgresql://localhost:5432/SmartEssayGrader
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: essay-grading-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+server:
+  port: 8080
+
+jwt:
+  secret: zKgb7RFALzRH6lxO8yyN9fWxODctI0CzH4sIukXPCUA
+  expiration: 86400000
+
+ai:
+  api:
+    key: ${AI_API_KEY:AIzaSyAkGSh2ZFwHCT5Pnb3jg1-CsHodreBEw4E}
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
+    model: gemini-2.5-flash
+
+
