@@ -58,9 +58,9 @@ public class EssayController {
     }
 
     @PostMapping("/{id}/grade")
-    public ResponseEntity<GradeResponse> gradeEssay(@PathVariable Long id,
+    public ResponseEntity<EssayResponse> gradeEssay(@PathVariable Long id,
                                                     @AuthenticationPrincipal User currentUser) {
-        return ResponseEntity.ok().body(gradingService.gradeEssay(id, currentUser));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(gradingService.gradeEssay(id, currentUser));
     }
 
 }
