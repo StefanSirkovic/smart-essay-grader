@@ -49,7 +49,9 @@ public class GradingService {
                 essay.getEssayStatus(),
                 essay.getSubmittedAt(),
                 essay.getUser().getId(),
-                essay.getUser().getEmail()
+                essay.getUser().getEmail(),
+                null,
+                null
         );
 
 
