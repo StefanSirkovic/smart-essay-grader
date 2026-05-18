@@ -83,7 +83,9 @@ public class EssayService {
                 essay.getEssayStatus(),
                 essay.getSubmittedAt(),
                 essay.getUser().getId(),
-                essay.getUser().getEmail()
+                essay.getUser().getEmail(),
+                essay.getGrade() != null ? essay.getGrade().getScore() : null,
+                essay.getGrade() != null ? essay.getGrade().getFeedback() : null
         );
     }
 }
