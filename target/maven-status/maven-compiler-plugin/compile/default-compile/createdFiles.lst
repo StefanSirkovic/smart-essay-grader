@@ -1,5 +1,6 @@
 com/stefan/essaygraderai/controller/EssayController.class
 com/stefan/essaygraderai/enums/Role.class
+com/stefan/essaygraderai/config/RedisConfig.class
 com/stefan/essaygraderai/entity/Grade.class
 com/stefan/essaygraderai/exception/GradingException.class
 com/stefan/essaygraderai/exception/GlobalExceptionHandler.class

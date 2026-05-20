@@ -8,6 +8,9 @@ import com.stefan.essaygraderai.enums.EssayStatus;
 import com.stefan.essaygraderai.exception.EssayAlreadyGradedException;
 import com.stefan.essaygraderai.exception.EssayNotFoundException;
 import com.stefan.essaygraderai.repository.EssayRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,6 +25,7 @@ public class EssayService {
         this.essayRepository = essayRepository;
     }
 
+    @CacheEvict(value = "essays", key = "#currentUser.id")
     public EssayResponse createEssay(EssayRequest request, User currentUser) {
         Essay essay = Essay.builder()
                 .title(request.title())
@@ -36,6 +40,7 @@ public class EssayService {
         return mapToResponse(essay);
     }
 
+    @Cacheable(value = "essays", key = "#currentUser.id")
     public List<EssayResponse> getMyEssays(User currentUser) {
         return essayRepository.findByUserId(currentUser.getId())
                 .stream()
@@ -43,6 +48,7 @@ public class EssayService {
                 .toList();
     }
 
+    @Cacheable(value = "essay", key = "#currentUser.id + '_' + #id")
     public EssayResponse getEssayById(Long id, User currentUser) {
         Essay essay = essayRepository.findByIdAndUserId(id, currentUser.getId())
                 .orElseThrow(() -> new EssayNotFoundException("Essay not found."));
@@ -51,6 +57,10 @@ public class EssayService {
 
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = "essay", key = "#currentUser.id + '_' + #id"),
+            @CacheEvict(value = "essays", key = "#currentUser.id")
+    })
     public EssayResponse updateEssay(Long id, EssayRequest request, User currentUser) {
         Essay essay = essayRepository.findByIdAndUserId(id, currentUser.getId())
                 .orElseThrow(() -> new EssayNotFoundException("Essay not found."));
@@ -67,6 +77,10 @@ public class EssayService {
         return mapToResponse(essay);
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = "essay", key = "#currentUser.id + '_' + #id"),
+            @CacheEvict(value = "essays", key = "#currentUser.id")
+    })
     public void deleteEssay(Long id, User currentUser) {
         Essay essay = essayRepository.findByIdAndUserId(id, currentUser.getId())
                 .orElseThrow(() -> new EssayNotFoundException("Essay not found."));

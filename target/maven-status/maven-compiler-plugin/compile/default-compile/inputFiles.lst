@@ -1,5 +1,6 @@
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/SmartEssayGraderApplication.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/config/KafkaConfig.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/config/RedisConfig.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/config/SecurityConfig.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/controller/AuthController.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/controller/EssayController.java
