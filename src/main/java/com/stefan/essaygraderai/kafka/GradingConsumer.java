@@ -6,10 +6,11 @@ import com.stefan.essaygraderai.entity.Essay;
 import com.stefan.essaygraderai.entity.Grade;
 import com.stefan.essaygraderai.enums.EssayStatus;
 import com.stefan.essaygraderai.exception.EssayNotFoundException;
-import com.stefan.essaygraderai.exception.GradingException;
 import com.stefan.essaygraderai.repository.EssayRepository;
 import com.stefan.essaygraderai.repository.GradeRepository;
 import com.stefan.essaygraderai.service.AiService;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,13 @@ public class GradingConsumer {
     private final AiService aiService;
     private final EssayRepository essayRepository;
     private final GradeRepository gradeRepository;
+    private final CacheManager cacheManager;
 
-    public GradingConsumer(AiService aiService, EssayRepository essayRepository, GradeRepository gradeRepository) {
+    public GradingConsumer(AiService aiService, EssayRepository essayRepository, GradeRepository gradeRepository, CacheManager cacheManager) {
         this.aiService = aiService;
         this.essayRepository = essayRepository;
         this.gradeRepository = gradeRepository;
+        this.cacheManager = cacheManager;
     }
 
     @KafkaListener(topics = "essay-grading", groupId = "essay-grading-group")
@@ -52,6 +55,12 @@ public class GradingConsumer {
 
         essay.setEssayStatus(EssayStatus.GRADED);
         essayRepository.save(essay);
+
+        Cache essayCache = cacheManager.getCache("essay");
+        Cache essaysCache = cacheManager.getCache("essays");
+
+        if (essayCache != null) essayCache.evict(essay.getUser().getId() + "_" + essay.getId());
+        if (essaysCache != null) essaysCache.evict(essay.getUser().getId());
 
 
     }
