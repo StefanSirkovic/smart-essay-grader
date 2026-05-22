@@ -58,10 +58,11 @@ public class GradingConsumer {
 
         Cache essayCache = cacheManager.getCache("essay");
         Cache essaysCache = cacheManager.getCache("essays");
+        Cache dashboardCache = cacheManager.getCache("dashboard");
 
         if (essayCache != null) essayCache.evict(essay.getUser().getId() + "_" + essay.getId());
         if (essaysCache != null) essaysCache.evict(essay.getUser().getId());
-
+        if (dashboardCache != null) dashboardCache.evict(essay.getUser().getId());
 
     }
 

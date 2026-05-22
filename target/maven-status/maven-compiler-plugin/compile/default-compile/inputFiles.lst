@@ -3,6 +3,7 @@
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/config/RedisConfig.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/config/SecurityConfig.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/controller/AuthController.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/controller/DashboardController.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/controller/EssayController.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/event/GradingEvent.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/request/EssayRequest.java
@@ -10,6 +11,7 @@
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/request/LoginRequest.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/request/RegisterRequest.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/response/AuthResponse.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/response/DashboardResponse.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/response/ErrorResponse.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/response/EssayResponse.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/dto/response/GeminiResponse.java
@@ -34,5 +36,6 @@
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/security/JwtService.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/service/AiService.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/service/AuthService.java
+/home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/service/DashboardService.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/service/EssayService.java
 /home/stefan/projects/SmartEssayGrader/src/main/java/com/stefan/essaygraderai/service/GradingService.java
