@@ -25,7 +25,10 @@ public class EssayService {
         this.essayRepository = essayRepository;
     }
 
-    @CacheEvict(value = "essays", key = "#currentUser.id")
+    @Caching(evict = {
+            @CacheEvict(value = "essays", key = "#currentUser.id"),
+            @CacheEvict(value = "dashboard", key = "#currentUser.id")
+    })
     public EssayResponse createEssay(EssayRequest request, User currentUser) {
         Essay essay = Essay.builder()
                 .title(request.title())
@@ -59,7 +62,8 @@ public class EssayService {
 
     @Caching(evict = {
             @CacheEvict(value = "essay", key = "#currentUser.id + '_' + #id"),
-            @CacheEvict(value = "essays", key = "#currentUser.id")
+            @CacheEvict(value = "essays", key = "#currentUser.id"),
+            @CacheEvict(value = "dashboard", key = "#currentUser.id")
     })
     public EssayResponse updateEssay(Long id, EssayRequest request, User currentUser) {
         Essay essay = essayRepository.findByIdAndUserId(id, currentUser.getId())
@@ -79,7 +83,8 @@ public class EssayService {
 
     @Caching(evict = {
             @CacheEvict(value = "essay", key = "#currentUser.id + '_' + #id"),
-            @CacheEvict(value = "essays", key = "#currentUser.id")
+            @CacheEvict(value = "essays", key = "#currentUser.id"),
+            @CacheEvict(value = "dashboard", key = "#currentUser.id")
     })
     public void deleteEssay(Long id, User currentUser) {
         Essay essay = essayRepository.findByIdAndUserId(id, currentUser.getId())
