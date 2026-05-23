@@ -1,12 +1,14 @@
 package com.stefan.essaygraderai.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stefan.essaygraderai.config.TestConfig;
 import com.stefan.essaygraderai.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Import(TestConfig.class)
 public class EssayControllerTest {
 
     @Autowired
@@ -81,7 +84,7 @@ public class EssayControllerTest {
         mockMvc.perform(post("/api/essays")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(createEssayJson))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
 
     }
 
