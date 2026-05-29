@@ -17,3 +17,9 @@ k8s/secrets.yml
 # Binaries
 kubectl
 minikube-linux-amd64
+
+# Claude Code
+.claude/
+
+# Spring Boot generated
+HELP.md
