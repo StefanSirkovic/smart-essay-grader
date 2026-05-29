@@ -1,5 +1,12 @@
 .env
 
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
+
 # Frontend
 frontend/node_modules/
 frontend/dist/
