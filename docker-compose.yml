@@ -2,17 +2,15 @@ services:
   db:
     image: postgres:17
     container_name: smart-essay-db
-
     environment:
       POSTGRES_DB: SmartEssayGrader
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-
     ports:
       - "5432:5432"
-
     volumes:
-        - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
   kafka:
     image: apache/kafka:4.0.0
     container_name: smart-essay-kafka
@@ -22,14 +20,34 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
   redis:
     image: redis:7
     container_name: smart-essay-redis
     ports:
       - "6379:6379"
+
+  app:
+    build: .
+    container_name: smart-essay-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - kafka
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/SmartEssayGrader
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_DATA_REDIS_HOST: redis
+      JWT_SECRET: ${JWT_SECRET}
+      AI_API_KEY: ${AI_API_KEY}
+
 volumes:
   postgres_data:
