@@ -6,3 +6,7 @@ frontend/dist/
 
 # Kubernetes secrets
 k8s/secrets.yml
+
+# Binaries
+kubectl
+minikube-linux-amd64
