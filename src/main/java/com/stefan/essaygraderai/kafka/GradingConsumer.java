@@ -11,6 +11,8 @@ import com.stefan.essaygraderai.repository.GradeRepository;
 import com.stefan.essaygraderai.service.AiService;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.time.LocalDateTime;
 
 @Service
 public class GradingConsumer {
+
+    private static final Logger log = LoggerFactory.getLogger(GradingConsumer.class);
 
     private final AiService aiService;
     private final EssayRepository essayRepository;
@@ -39,6 +43,7 @@ public class GradingConsumer {
         try {
             gradeResponse = aiService.getData(essay);
         } catch (Exception ex) {
+            log.error("Grading failed for essay {}: {}", essay.getId(), ex.getMessage(), ex);
             essay.setEssayStatus(EssayStatus.FAILED);
             essayRepository.save(essay);
             return;
