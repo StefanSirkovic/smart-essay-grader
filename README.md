@@ -6,6 +6,20 @@ A full-stack essay grading platform that uses AI to provide automated feedback a
 
 Students submit essays through the web interface. The system sends them to Google's Gemini API for analysis, which returns a score and detailed feedback. Grading happens asynchronously through Kafka so the API stays responsive — students can check back for results or watch the status update in real time.
 
+## Screenshots
+
+| Dashboard | Essay Detail |
+|-----------|-------------|
+| ![Dashboard](slike%20za%20zavrsni%20rad/dashboard.png) | ![Essay Detail](slike%20za%20zavrsni%20rad/essay.png) |
+
+| Login | Register |
+|-------|----------|
+| ![Login](slike%20za%20zavrsni%20rad/login.png) | ![Register](slike%20za%20zavrsni%20rad/register.png) |
+
+| Create Essay | Essay List |
+|-------------|-----------|
+| ![Create Essay](slike%20za%20zavrsni%20rad/createEssay.png) | ![Essay List](slike%20za%20zavrsni%20rad/essay%20list.png) |
+
 ## Tech Stack
 
 **Backend:**
@@ -125,6 +139,8 @@ docker compose up --build
 
 This builds the app image and starts all services. The app will be available at `http://localhost:8080`.
 
+![Docker containers](slike%20za%20zavrsni%20rad/docker.png)
+
 ## Running Tests
 
 ```bash
@@ -135,6 +151,12 @@ Runs 15 tests total:
 - **Unit tests:** AuthService (3), EssayService (5) — isolated with Mockito
 - **Integration tests:** AuthController (5), EssayController (4) — full Spring context with MockMvc
 - Tests use H2 in-memory database and mock Kafka/Redis beans
+
+## CI/CD
+
+GitHub Actions runs `mvn verify` on every push and pull request to `main`.
+
+![CI/CD Pipeline](slike%20za%20zavrsni%20rad/ci%20cd.png)
 
 ## Kubernetes
 
@@ -151,3 +173,5 @@ kubectl apply -f k8s/kafka.yml
 kubectl apply -f k8s/app.yml
 minikube service smart-essay-app -n essay-grader
 ```
+
+![Kubernetes pods](slike%20za%20zavrsni%20rad/kubernetes.png)
